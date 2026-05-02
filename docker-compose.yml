@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  # 1. 백엔드 (FastAPI) 설정
+  backend:
+    build: ./back                 # back 폴더의 Dockerfile을 읽어서 빌드
+    container_name: sin_backend
+    ports:
+      - "8000:8000"               # 외부 8000 포트를 내부 8000 포트와 연결
+    restart: always               # 서버가 꺼지면 자동으로 다시 켜지게 설정
+    env_file:
+      - .env
+
+  # 2. 프론트엔드 (Streamlit) 설정
+  frontend:
+    build: ./front                # front 폴더의 Dockerfile을 읽어서 빌드
+    container_name: sin_frontend
+    ports:
+      - "8501:8501"               # 외부 8501 포트를 내부 8501 포트와 연결
+    depends_on:
+      - backend                   # backend가 먼저 켜진 다음에 frontend를 켬
+    restart: always
+    
