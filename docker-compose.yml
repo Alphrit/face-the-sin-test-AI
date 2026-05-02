@@ -14,7 +14,7 @@ services:
     build: ./front
     container_name: sin_frontend_ai
     ports:
-      - "8502:8501"
+      - "8503:8501"
     depends_on:
       - backend
     restart: always
